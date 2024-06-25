@@ -17,6 +17,7 @@ table 50302 "GPT Hotel Reservation"
         {
             DataClassification = CustomerContent;
             tableRelation = "Customer"."Name";
+            ValidateTableRelation = false;
         }
         field(4; "Check-In Date"; Date)
         {

@@ -12,6 +12,7 @@ page 50301 "GPT Booking Assistant"
             field(InputText; InputText)
             {
                 ShowCaption = false;
+                InstructionalText = 'Ask me a question about hotels.';
                 MultiLine = true;
                 ApplicationArea = All;
             }
@@ -67,10 +68,10 @@ page 50301 "GPT Booking Assistant"
             }
             group(Information)
             {
-                Caption = 'Hotel Info';
+                Caption = 'Information';
                 action(WhatIsThePriceForARoomAtHotelOnDate)
                 {
-                    Caption = 'What is the price for a room at [hotel] on [date]?';
+                    Caption = 'What is the price for a room at [hotel]?';
                     ApplicationArea = All;
                     trigger OnAction()
                     begin
@@ -88,18 +89,6 @@ page 50301 "GPT Booking Assistant"
                 }
 
             }
-            // group(Book)
-            // {
-            //     action(BookHotel)
-            //     {
-            //         Caption = 'Book a room at [hotel] from [date] to [date]';
-            //         ApplicationArea = All;
-            //         trigger OnAction()
-            //         begin
-            //             InputText := 'Book a room at ';
-            //         end;
-            //     }
-            // }
         }
     }
 
