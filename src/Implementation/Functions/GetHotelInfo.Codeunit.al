@@ -19,15 +19,15 @@ codeunit 50302 "GPT GetHotelInfo" implements "AOAI Function"
         //             "type": "object",
         //             "properties": {
         //                 "hotel": {
-        //                     "type": "text",
+        //                     "type": "string",
         //                     "description": "The name of the hotel."
         //                 },
         //                 "fromDate": {
-        //                     "type": "Date",
+        //                     "type": "string",
         //                     "description": "The starting date for booking."
         //                 },
         //                 "toDate": {
-        //                     "type": "Date",
+        //                     "type": "string",
         //                     "description": "The ending date for booking."
         //                 },
         //             },

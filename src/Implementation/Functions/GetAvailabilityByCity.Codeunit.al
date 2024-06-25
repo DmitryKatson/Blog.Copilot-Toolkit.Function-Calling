@@ -20,7 +20,7 @@ codeunit 50303 "GPT GetAvailabilityByCity" implements "AOAI Function"
         //             "type": "object",
         //             "properties": {
         //                 "City": {
-        //                     "type": "text",
+        //                     "type": "string",
         //                     "description": "The name of the city."
         //                 },
         //                 "minPrice": {
@@ -28,11 +28,11 @@ codeunit 50303 "GPT GetAvailabilityByCity" implements "AOAI Function"
         //                     "description": "The minimum price for a room."
         //                 },
         //                 "fromDate": {
-        //                     "type": "Date",
+        //                     "type": "string",
         //                     "description": "The starting date for booking."
         //                 },
         //                 "toDate": {
-        //                     "type": "Date",
+        //                     "type": "string",
         //                     "description": "The ending date for booking."
         //                 },
         //             },
