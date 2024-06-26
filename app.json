@@ -4,11 +4,11 @@
   "publisher": "Katson.com",
   "version": "1.0.0.0",
   "brief": "Easily book your next hotel with Copilot.",
-  "description": "Learn how to use Function Calling in Copilot Toolkit to check availability and book a hotel room.",
+  "description": "Learn how to use Function Calling in AL Copilot Toolkit to check information and availability of the hotel.",
   "privacyStatement": "https://katson.com/privacy-policy/",
   "EULA": "https://katson.com/terms-of-use/",
-  "help": "",
-  "url": "",
+  "help": "https://katson.com/copilot-toolkit-function-calling/",
+  "url": "https://katson.com/copilot-toolkit-function-calling/",
   "logo": "",
   "dependencies": [],
   "screenshots": [],
@@ -29,5 +29,5 @@
   "features": [
     "NoImplicitWith"
   ],
-  "contextSensitiveHelpUrl": "https://katson.com/blog/"
+  "contextSensitiveHelpUrl": "https://katson.com/copilot-toolkit-function-calling/"
 }
