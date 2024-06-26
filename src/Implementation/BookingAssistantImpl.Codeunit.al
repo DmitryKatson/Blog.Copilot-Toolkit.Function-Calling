@@ -49,6 +49,7 @@ codeunit 50301 "GPT Booking Assistant Impl."
         SystemMetaprompt.AppendLine('Select one of the following functions to resolve the user query:');
         SystemMetaprompt.AppendLine('1. GetHotelInfo: to get information about a hotel.');
         SystemMetaprompt.AppendLine('2. GetAvailabilityByCity: to get available hotels in a city.');
+        SystemMetaprompt.AppendLine('In case user asks for something else, don''t answer and ask to rephrase the question.');
         exit(SystemMetaprompt.ToText());
     end;
 
