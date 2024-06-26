@@ -10,4 +10,4 @@ https://github.com/DmitryKatson/Blog.Copilot-Toolkit.Function-Calling/assets/291
 
 
 ## Blog Post
-[Copilot Toolkit: Function Calling](https://github.com/DmitryKatson/Blog.Copilot-Toolkit.Function-Calling/settings)  
+[Copilot Toolkit: Function Calling](https://katson.com/copilot-toolkit-function-calling/)  
