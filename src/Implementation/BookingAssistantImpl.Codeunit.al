@@ -3,7 +3,6 @@ codeunit 50301 "GPT Booking Assistant Impl."
     procedure GetAnswer(Question: Text; var Answer: Text)
     var
         AzureOpenAI: Codeunit "Azure OpenAi";
-        CopilotSetup: Record "GPT Booking Copilot Setup";
 
         AOAIChatCompletionParams: Codeunit "AOAI Chat Completion Params";
         AOAIChatMessages: Codeunit "AOAI Chat Messages";
@@ -12,12 +11,13 @@ codeunit 50301 "GPT Booking Assistant Impl."
 
         AOAIOperationResponse: Codeunit "AOAI Operation Response";
         AOAIFunctionResponse: Codeunit "AOAI Function Response";
+        AOAIDeployments: codeunit "AOAI Deployments";
     begin
         if not AzureOpenAI.IsEnabled(Enum::"Copilot Capability"::"GPT Booking Copilot") then
             exit;
 
         AzureOpenAI.SetCopilotCapability(Enum::"Copilot Capability"::"GPT Booking Copilot");
-        AzureOpenAI.SetAuthorization(Enum::"AOAI Model Type"::"Chat Completions", CopilotSetup.GetEndpoint(), CopilotSetup.GetDeployment(), CopilotSetup.GetSecretKey());
+        AzureOpenAI.SetAuthorization(Enum::"AOAI Model Type"::"Chat Completions", AOAIDeployments.GetGPT35TurboLatest());
 
         AOAIChatCompletionParams.SetTemperature(0);
 
