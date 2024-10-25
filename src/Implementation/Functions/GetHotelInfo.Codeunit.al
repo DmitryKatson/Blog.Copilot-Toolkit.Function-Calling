@@ -22,14 +22,6 @@ codeunit 50302 "GPT GetHotelInfo" implements "AOAI Function"
         //                     "type": "string",
         //                     "description": "The name of the hotel."
         //                 },
-        //                 "fromDate": {
-        //                     "type": "string",
-        //                     "description": "The starting date for booking."
-        //                 },
-        //                 "toDate": {
-        //                     "type": "string",
-        //                     "description": "The ending date for booking."
-        //                 },
         //             },
         //             "required": ["hotel"]
         //         }
@@ -39,7 +31,7 @@ codeunit 50302 "GPT GetHotelInfo" implements "AOAI Function"
         // describe the function
         ToolJObj.Add('type', 'function');
         FunctionJObject.Add('name', 'GetHotelInfo');
-        FunctionJObject.Add('description', 'Returns the information about a hotel and booking options.');
+        FunctionJObject.Add('description', 'Returns the information about a hotel.');
 
         // describe the parameters
         ParametersJObject.Add('type', 'object');
@@ -48,16 +40,6 @@ codeunit 50302 "GPT GetHotelInfo" implements "AOAI Function"
         HotelJObject.Add('type', 'string');
         HotelJObject.Add('description', 'The name of the hotel.');
         PropertiesJObject.Add('hotel', HotelJObject);
-
-        // describe the fromDate parameter
-        FromDateJObject.Add('type', 'string');
-        FromDateJObject.Add('description', 'The starting date for booking.');
-        PropertiesJObject.Add('fromDate', FromDateJObject);
-
-        // describe the toDate parameter
-        ToDateJObject.Add('type', 'string');
-        ToDateJObject.Add('description', 'The ending date for booking.');
-        PropertiesJObject.Add('toDate', ToDateJObject);
 
         // add the properties to the parameters
         ParametersJObject.Add('properties', PropertiesJObject);
@@ -76,12 +58,10 @@ codeunit 50302 "GPT GetHotelInfo" implements "AOAI Function"
     procedure Execute(Arguments: JsonObject): Variant
     var
         HotelName: Text;
-        FromDate: Date;
-        ToDate: Date;
         HotelInfo: TextBuilder;
     begin
-        ExtractArguments(Arguments, HotelName, FromDate, ToDate);
-        FindHotelInformation(HotelName, FromDate, ToDate, HotelInfo);
+        ExtractArguments(Arguments, HotelName);
+        FindHotelInformation(HotelName, HotelInfo);
         exit(HotelInfo.ToText());
     end;
 
@@ -90,7 +70,7 @@ codeunit 50302 "GPT GetHotelInfo" implements "AOAI Function"
         exit('GetHotelInfo')
     end;
 
-    local procedure ExtractArguments(Arguments: JsonObject; var HotelName: Text; var FromDate: Date; var ToDate: Date)
+    local procedure ExtractArguments(Arguments: JsonObject; var HotelName: Text)
     var
         Token: JsonToken;
     begin
@@ -98,15 +78,9 @@ codeunit 50302 "GPT GetHotelInfo" implements "AOAI Function"
             exit;
 
         HotelName := Token.AsValue().AsText();
-
-        if Arguments.Get('fromDate', Token) then
-            FromDate := Token.AsValue().AsDate();
-
-        if Arguments.Get('toDate', Token) then
-            ToDate := Token.AsValue().AsDate();
     end;
 
-    local procedure FindHotelInformation(HotelName: Text; FromDate: Date; ToDate: Date; var HotelInfo: TextBuilder)
+    local procedure FindHotelInformation(HotelName: Text; var HotelInfo: TextBuilder)
     var
         Hotel: Record "GPT Hotel";
     begin
@@ -119,30 +93,12 @@ codeunit 50302 "GPT GetHotelInfo" implements "AOAI Function"
         HotelInfo.AppendLine(StrSubstNo('Found %1 hotels.', Hotel.Count));
         Hotel.FindSet();
         repeat
-            HotelInfo.AppendLine('## Hotel Information');
+            HotelInfo.AppendLine('Hotel Information');
             HotelInfo.AppendLine(Hotel.Name);
             HotelInfo.AppendLine(Hotel.City);
             HotelInfo.AppendLine('Rating: ' + Format(Hotel.Rating));
             HotelInfo.AppendLine(Hotel.Amenities);
             HotelInfo.AppendLine('Room Price ($): ' + Format(Hotel.Price));
-
-            FindAvailabilityInformation(Hotel.Code, FromDate, ToDate, HotelInfo);
         until Hotel.Next() = 0;
-    end;
-
-    local procedure FindAvailabilityInformation(HotelCode: Code[20]; FromDate: Date; ToDate: Date; var HotelInfo: TextBuilder)
-    var
-        HotelReservation: Record "GPT Hotel Reservation";
-    begin
-        HotelInfo.AppendLine('## Availability');
-        HotelInfo.AppendLine(StrSubstNo('As of %1, the hotel is: ', FromDate));
-
-        HotelReservation.SetRange("Hotel Code", HotelCode);
-        HotelReservation.SetFilter("Check-In Date", '<%1', ToDate);
-        HotelReservation.SetFilter("Check-Out Date", '>%1', FromDate);
-        if HotelReservation.IsEmpty then
-            HotelInfo.Append('available')
-        else
-            HotelInfo.Append('not available');
     end;
 }

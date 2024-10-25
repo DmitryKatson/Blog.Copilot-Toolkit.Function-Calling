@@ -138,7 +138,7 @@ codeunit 50303 "GPT GetAvailabilityByCity" implements "AOAI Function"
                 HotelReservation.SetFilter("Check-In Date", '<%1', ToDate);
                 HotelReservation.SetFilter("Check-Out Date", '>%1', FromDate);
                 if HotelReservation.IsEmpty then
-                    AvailableHotels.AppendLine(Hotel.Name);
+                    AvailableHotels.AppendLine('Hotel: ' + Hotel.Name + ' Price: ' + Format(Hotel.Price) + ' Description: ' + Hotel.Amenities);
             until Hotel.Next() = 0;
 
         exit(AvailableHotels.ToText());

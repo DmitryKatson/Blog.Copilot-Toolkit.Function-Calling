@@ -26,6 +26,7 @@ page 50301 "GPT Booking Assistant"
                 ApplicationArea = All;
                 ShowCaption = false;
                 Editable = false;
+                ExtendedDatatype = RichContent;
             }
         }
     }
